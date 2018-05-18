@@ -1,0 +1,238 @@
+<div class="container">
+  <div [hidden]="submitted">
+
+    <h1>AVTECH Maintenance Log Form</h1>
+    <form (ngSubmit)="onSubmit()" #logForm="ngForm">
+      <br>
+      <div class="form-group" data-tip="This is the text of the tooltip2">
+        <label for="tailNumber" matTooltip="fdaf">Tail Number</label>
+        <input title="Enter the Tail Number for the Aircraft, Maximum 9 characters"
+               type="text"
+               class="form-control"
+               id="tailNumber"
+               required
+               [(ngModel)]="model.tailNumber"
+               name="tailNumber"
+               size="9"
+               #tname="ngModel"
+               maxlength="9"
+               placeholder="Enter the Tail Number for the Aircraft, Maximum 9 characters">
+        <div [hidden]="tname.valid || tname.pristine"
+             class="alert alert-danger">
+          A Valid TailNumber is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="manufacturer">Manufacturer</label>
+        <input title="Enter the Aircraft Manufacturer"
+               type="text"
+               class="form-control"
+               id="manufacturer"
+               required
+               [(ngModel)]="model.manufacturer"
+               name="manufactuer"
+               #mname="ngModel"
+               placeholder="Enter the Aircraft Manufacturer">
+        <div [hidden]="mname.valid || mname.pristine"
+             class="alert alert-danger">
+          A Valid Manufacturer is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="model">Aircraft Model</label>
+        <input title="Enter the Aircraft Model"
+               type="text"
+               class="form-control"
+               id="model"
+               required
+               [(ngModel)]="model.model"
+               name="model"
+               #amname="ngModel"
+               placeholder="Enter the Aircraft Model">
+        <div [hidden]="amname.valid || amname.pristine"
+             class="alert alert-danger">
+          A Valid Aircraft Model is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="serialNumber">Serial Number</label>
+        <input title="Enter the Serial Number for the Aircraft"
+               type="text"
+               class="form-control"
+               id="serialNumber"
+               required
+               [(ngModel)]="model.serialNumber"
+               name="serialNumber"
+               #sname="ngModel"
+               placeholder="Enter the Serial Number for the Aircraft">
+        <div [hidden]="sname.valid || sname.pristine"
+             class="alert alert-danger">
+          A Valid Serial Number is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="totalTimeOnAirFrame">Total Time On Air Frame</label>
+        <input title="Enter the total time on the aircraft"
+               type="number"
+               class="form-control"
+               id="totalTimeOnAirFrame"
+               required
+               [(ngModel)]="model.totalTimeOnAirFrame"
+               name="totalTimeOnAirFrame"
+               #ttname="ngModel"
+               placeholder="Enter the total time on the aircraft">
+        <div [hidden]="ttname.valid || ttname.pristine"
+             class="alert alert-danger">
+          A Valid Number is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="hobbs">Hobbs</label>
+        <input title="Enter the Hobbs Meter Time"
+               type="text"
+               class="form-control"
+               id="hobbs" required
+               [(ngModel)]="model.hobbs"
+               name="hobbs"
+               #hname="ngModel"
+               placeholder="Enter the Hobbs Meter Time">
+        <div [hidden]="hname.valid || hname.pristine"
+             class="alert alert-danger">
+          A Valid Hobbs number is required is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="workOrderNumber">Work Order Number</label>
+        <input title="Enter the Work Order Number (identifier)"
+               type="text"
+               class="form-control"
+               id="workOrderNumber"
+               required
+               [(ngModel)]="model.workOrderNumber"
+               name="workOrderNumber"
+               #woname="ngModel"
+               placeholder="Enter the Work Order Number (identifier)">
+        <div [hidden]="woname.valid || woname.pristine"
+             class="alert alert-danger">
+          A Valid Work Order Number is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="logDate">Date</label>
+        <input title="Enter the Date or use the Date selector to the right"
+               type="date"
+               class="form-control"
+               id="logDate"
+               required
+               [(ngModel)]="model.logDate"
+               name="logDate"
+               #ld="ngModel"
+               placeholder="Enter the Date or use the Date selector to the right">
+        <div [hidden]="ld.valid || ld.pristine"
+             class="alert alert-danger">
+          A Valid Date is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="logEntry">Textual Log Entry</label>
+        <textarea title="Enter Log book entry, max number of characters = 1400"
+                  rows="10"
+                  cols="140"
+                  maxlength="1400"
+                  class="form-control"
+                  id="logEntry"
+                  required
+                  [(ngModel)]="model.logEntry"
+                  name="logEntry"
+                  #le="ngModel"
+                  placeholder="Enter Log book entry, max number of characters = 1400">
+        </textarea>
+        <div [hidden]="le.valid || le.pristine"
+             class="alert alert-danger">
+          A Valid Log Entry is required
+        </div>
+        <div>
+          You have written {{ model.logEntry.length }} characters. You have {{1400 - model.logEntry.length}} characters
+          left.
+        </div>
+      </div>
+      <!--{{diagnostic}}-->
+      <br>
+      <button
+        title="Submit the form for conversion to a PDF logbook entry"
+        type="submit"
+        class="btn btn-success"
+        [disabled]="!logForm.form.valid">
+        Submit
+      </button>
+      <button
+        title="Set the entry's to some defaults"
+        type="button"
+        class="btn btn-default"
+        (click)="notApplicable();">
+        Set to Default
+      </button>
+      <button
+        title="Clear the Form of data"
+        type="button"
+        class="btn btn-default"
+        (click)="clearForm();logForm.reset();clearForm()">
+        Clear Form
+      </button>
+    </form>
+  </div> <!-- Submitted flag -->
+  <div [hidden]="!submitted">
+    <h2>You submitted the following:</h2>
+    <div class="row">
+      <div class="col-xs-3">Tail Number</div>
+      <div class="col-xs-8  pull-left">{{ model.tailNumber }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Manufacturer</div>
+      <div class="col-xs-8 pull-left">{{ model.manufacturer }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Model</div>
+      <div class="col-xs-8 pull-left">{{ model.model }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Serial Number</div>
+      <div class="col-xs-8 pull-left">{{ model.serialNumber }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Total Time On Airframe</div>
+      <div class="col-xs-8 pull-left">{{ model.totalTimeOnAirFrame }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Hobbs</div>
+      <div class="col-xs-8 pull-left">{{ model.hobbs }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Work Order Number</div>
+      <div class="col-xs-8 pull-left">{{ model.workOrderNumber }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Date of Log Entry</div>
+      <div class="col-xs-8 pull-left">{{ model.logDate }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Textual Log Entry</div>
+      <div class="col-xs-8 pull-left">{{ model.logEntry }}</div>
+    </div>
+    <br>
+    <button
+      title="Click to go back and edit your form data"
+      class="btn btn-primary"
+      (click)="submitted=false">
+      Edit
+    </button>
+  </div>
+</div>

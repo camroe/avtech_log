@@ -1,0 +1,12 @@
+.idea
+./backend/*.iml
+./frontend/*.iml
+/.idea
+**.iml
+*.ipr
+
+target/
+tomcat/
+dist/
+node_modules/
+node/
