@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class WebController {
 
-    @RequestMapping(value={"/","home"})
+    @RequestMapping(value={"/","homey"})
     public String home(){
-        return "home";
+        return "homey";
     }
 
     @RequestMapping(value={"/welcome"})

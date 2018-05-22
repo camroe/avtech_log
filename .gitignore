@@ -10,3 +10,4 @@ tomcat/
 dist/
 node_modules/
 node/
+backend/results
