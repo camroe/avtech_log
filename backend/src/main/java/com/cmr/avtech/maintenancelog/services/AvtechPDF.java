@@ -52,20 +52,20 @@ public class AvtechPDF {
         } catch (IOException ioex) {
             //ignore
         }
-
         DEFAULT_FILE_NAME = DEFAULT_DESTINATION_DIR + "/" + getCurrentDateTimeStamp() + logEntry.getTailNumber() + ".pdf";
-        destinationFile = new File(DEFAULT_FILE_NAME);
-        destinationFile.getParentFile().mkdir();
     }
 
 
-    public void createPdf(String fileName) throws IOException {
+    public void createPdf(String dirName) throws IOException {
         PdfWriter pdfWriter = null;
-        if (null == fileName || ("".equalsIgnoreCase(fileName)))
-            fileName = DEFAULT_FILE_NAME;
+        String filename;
+        if (null == dirName || ("".equalsIgnoreCase(dirName)))
+            filename = constructFileName(DEFAULT_DESTINATION_DIR);
+        else
+            filename = constructFileName(dirName);
         try {
-            destinationFile = new File(fileName);
-
+            destinationFile = new File(filename);
+            destinationFile.getParentFile().mkdir();
             pdfWriter = new PdfWriter(destinationFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -91,6 +91,10 @@ public class AvtechPDF {
         document.add(generateSignatureLine(logo));
         document.close();
 
+    }
+
+    private String constructFileName(String defaultDestinationDir) {
+        return defaultDestinationDir + "/" + getCurrentDateTimeStamp() + logEntry.getTailNumber() + ".pdf";
     }
 
     private Paragraph generateSignatureLine(Image logo) {
@@ -122,10 +126,9 @@ public class AvtechPDF {
         if ((null == this.logEntry.getWorkOrderNumber()) || "".equalsIgnoreCase(this.logEntry.getWorkOrderNumber())) {
 
 
-        workOrderNumber = new Text(" WO NOT ENTERED ")
-                .setBackgroundColor(Color.YELLOW);
-    }
-        else
+            workOrderNumber = new Text(" WO NOT ENTERED ")
+                    .setBackgroundColor(Color.YELLOW);
+        } else
             workOrderNumber = new Text(this.logEntry.getWorkOrderNumber());
 
         workOrderNumber
@@ -200,7 +203,8 @@ public class AvtechPDF {
         //Tail Number Cell
         Cell cell = new Cell();
         if (((null == this.logEntry.getTailNumber()) || "".equalsIgnoreCase(this.logEntry.getTailNumber()))) {
-            cell.add("Not Entered");
+            cell.add("Not Entered")
+                    .setBackgroundColor(Color.YELLOW);
         } else {
             cell.add(this.logEntry.getTailNumber());
         }
@@ -229,7 +233,8 @@ public class AvtechPDF {
         //Manufacturer Data
         Cell cell = new Cell();
         if (((null == this.logEntry.getManufacturer()) || "".equalsIgnoreCase(this.logEntry.getManufacturer()))) {
-            cell.add("Not Entered");
+            cell.add("Not Entered")
+                    .setBackgroundColor(Color.YELLOW);
         } else {
             cell.add(this.logEntry.getManufacturer());
         }
@@ -257,7 +262,8 @@ public class AvtechPDF {
     private Cell generateModelDataCell() {
         Cell cell = new Cell();
         if (((null == this.logEntry.getModel()) || "".equalsIgnoreCase(this.logEntry.getModel()))) {
-            cell.add("Not Entered");
+            cell.add("Not Entered")
+                    .setBackgroundColor(Color.YELLOW);
         } else {
             cell.add(this.logEntry.getModel());
         }
@@ -285,7 +291,8 @@ public class AvtechPDF {
     private Cell generateSerialNumberCell() {
         Cell cell = new Cell();
         if (((null == this.logEntry.getSerialNumber()) || "".equalsIgnoreCase(this.logEntry.getSerialNumber()))) {
-            cell.add("Not Entered");
+            cell.add("Not Entered")
+                    .setBackgroundColor(Color.YELLOW);
         } else {
             cell.add(this.logEntry.getSerialNumber());
         }
@@ -313,7 +320,8 @@ public class AvtechPDF {
     private Cell generateTTAFCell() {
         Cell cell = new Cell();
         if (null == this.logEntry.getTtaf()) {
-            cell.add("Not Entered");
+            cell.add("Not Entered")
+                    .setBackgroundColor(Color.YELLOW);
         } else {
             cell.add(String.valueOf(this.logEntry.getTtaf()));
         }
@@ -341,7 +349,8 @@ public class AvtechPDF {
     private Cell generateHobbsCell() {
         Cell cell = new Cell();
         if (null == this.logEntry.getHobbs()) {
-            cell.add("Not Entered");
+            cell.add("Not Entered")
+                    .setBackgroundColor(Color.YELLOW);
         } else {
             cell.add(String.valueOf(this.logEntry.getHobbs()));
         }
@@ -363,7 +372,8 @@ public class AvtechPDF {
         Paragraph paragraph = new Paragraph();
         //The Actual Log Book entry
         if (((null == this.logEntry.getLogEntry()) || "".equalsIgnoreCase(this.logEntry.getLogEntry()))) {
-            paragraph.add("NO LOG ENTRY MADE ");
+            paragraph.add("NO LOG ENTRY MADE ")
+                    .setBackgroundColor(Color.YELLOW);
         } else {
             paragraph.add("[")
                     .add(this.logEntry.getLogEntry())

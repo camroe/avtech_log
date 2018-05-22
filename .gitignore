@@ -11,3 +11,4 @@ dist/
 node_modules/
 node/
 backend/results
+backend/src/test/results

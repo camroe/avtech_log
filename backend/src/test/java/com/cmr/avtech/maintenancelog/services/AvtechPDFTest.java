@@ -12,13 +12,13 @@ public class AvtechPDFTest {
 
     @Before
     public void init() {
-        testLogEntry = new LogEntry("N9145V", "Mooney", "M20G", "690011", 5477.7f, 477.7f, "This is a very short Log entry.", "WO-987", null);
+        testLogEntry = new LogEntry(null, null, null, null, null, 0f, "This is a very short Log entry.", null, null);
 
     }
 
     @Test
     public void createPdf() throws IOException {
         AvtechPDF avtechPDF = new AvtechPDF(testLogEntry);
-        avtechPDF.createPdf(null);
+        avtechPDF.createPdf("src/test/results");
     }
 }
