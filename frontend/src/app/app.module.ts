@@ -5,6 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LogFormComponent } from './log-form/log-form.component';
+import {DataService} from "./data.service";
 
 @NgModule({
 
@@ -17,7 +18,7 @@ import { LogFormComponent } from './log-form/log-form.component';
     AppComponent,
     LogFormComponent
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,29 +6,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class WebController {
 
-    @RequestMapping(value={"/","homey"})
-    public String home(){
+     @RequestMapping(value = {"homey"})
+    public String home() {
         return "homey";
     }
 
-    @RequestMapping(value={"/welcome"})
-    public String welcome(){
+    @RequestMapping(value = {"/welcome"})
+    public String welcome() {
         return "welcome";
     }
 
-    @RequestMapping(value="/admin")
-    public String admin(){
+    @RequestMapping(value = "/admin")
+    public String admin() {
         return "admin";
     }
 
-    @RequestMapping(value={"/login"})
-    public String login(){
+    @RequestMapping(value = {"/login"})
+    public String login() {
         return "login";
     }
 
 
-    @RequestMapping(value="/403")
-    public String Error403(){
+    @RequestMapping(value = "/403")
+    public String Error403() {
         return "403";
     }
 }

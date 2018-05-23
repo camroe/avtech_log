@@ -1,60 +1,61 @@
-import {Component, NgModule, OnInit} from '@angular/core';
-import {MAT_TOOLTIP_DEFAULT_OPTIONS} from '@angular/material';
+import {Component, OnInit} from '@angular/core';
 import {LogEntry} from '../log-entry';
 
 @Component({
-  selector: 'app-log-form',
-  templateUrl: './log-form.component.html',
-  styleUrls: ['./log-form.component.css']
+    selector: 'app-log-form',
+    templateUrl: './log-form.component.html',
+    styleUrls: ['./log-form.component.css']
 })
 
 export class LogFormComponent implements OnInit {
 
-  submitted = false;
+    submitted = false;
 
 
-  model: LogEntry;
+    model: LogEntry;
 
-  onSubmit() {
-    this.submitted = true;
-  }
+    onSubmit() {
+        this.submitted = true;
+    }
 
-  constructor() {
-  }
+    constructor() {
+    }
 
-  ngOnInit() {
-    this.notApplicable();
-  }
+    ngOnInit() {
+        this.notApplicable();
+    }
 
-  // TODO: Remove this when we're done
-  get diagnostic() {
-    return JSON.stringify(this.model);
-  }
+    // TODO: Remove this when we're done
+    get diagnostic() {
+        return JSON.stringify(this.model);
+    }
 
-  clearForm() {
-    this.model = new LogEntry(null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      '');
+    clearForm() {
+        this.model = new LogEntry(null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            '',
+            null);
 
-  }
+    }
 
-  notApplicable() {
-    this.model = new LogEntry('None',
-      'None',
-      'None',
-      'None',
-      0,
-      1,
-      '1',
-      '5/4/18',
-      'This is a Default Log Entry');
-  }
+    notApplicable() {
+        this.model = new LogEntry(null,
+            'None',
+            'None',
+            'None',
+            'None',
+            0,
+            1,
+            '1',
+            '5/4/18',
+            'This is a Default Log Entry');
+    }
 
 }
 

@@ -37,3 +37,6 @@ Run Scrips by `npm run <script>`. The scrips are defined in `package.json`.
 
 Information on packaging for war found here. 
 https://stackoverflow.com/questions/43602712/angular-2-and-spring-boot-deploy-to-war
+
+Angular Http example
+http://javasampleapproach.com/frontend/angular/develop-angular-service-angular4-service
