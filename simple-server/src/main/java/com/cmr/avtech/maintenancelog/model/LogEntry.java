@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "logentry")
+
 public class LogEntry implements Serializable {
 
 

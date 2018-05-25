@@ -4,3 +4,4 @@ https://www.programcreek.com/java-api-examples/?api=org.springframework.boot.con
 
 
 https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+https://angular.io/guide/http
