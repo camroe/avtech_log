@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -12,11 +13,9 @@
     <packaging>jar</packaging>
 
     <groupId>com.cmr.avtech</groupId>
-    <artifactId>avtech-log-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <description>Avtech Log Backend Services</description>
-
-
+    <artifactId>simple-server</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <description>Avtech Log Backend Services - simple.</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -27,18 +26,8 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-log4j2</artifactId>-->
-        <!--</dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -49,17 +38,6 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <!-- Added JAXB dependencies because they went awaay from being in the JDK in Java9 -->
@@ -121,7 +99,6 @@
         <!--font-asian: use this is you need CJK functionality (Chinese / Japanese / Korean)-->
         <!--sign: use this if you need support for digital signatures.-->
     </dependencies>
-
     <build>
 
         <plugins>
@@ -174,19 +151,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!--<plugin>-->
-            <!--<artifactId>maven-war-plugin</artifactId>-->
-            <!--<version>3.2.0</version>-->
-            <!--<configuration>-->
-            <!--<webResources>-->
-            <!--<resource>-->
-            <!--<directory>../frontend/target</directory>-->
-            <!--</resource>-->
-            <!--</webResources>-->
-            <!--</configuration>-->
-            <!--</plugin>-->
+
         </plugins>
     </build>
-
-
 </project>
