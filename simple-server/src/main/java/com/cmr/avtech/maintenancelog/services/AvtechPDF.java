@@ -2,6 +2,7 @@ package com.cmr.avtech.maintenancelog.services;
 
 import com.cmr.avtech.maintenancelog.model.LogEntry;
 import com.itextpdf.io.font.FontConstants;
+import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.color.DeviceGray;
@@ -21,6 +22,7 @@ import com.itextpdf.layout.property.VerticalAlignment;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,7 +31,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AvtechPDF {
-    private static final String SRC_MAIN_RESOURCES_IMG_AVTECH_LOGO_PNG = "src/main/resources/img/AvtechLogo.png";
+//    private static final String SRC_MAIN_RESOURCES_IMG_AVTECH_LOGO_PNG = "src/main/resources/img/AvtechLogo.png";
+    private static final String SRC_MAIN_RESOURCES_IMG_AVTECH_LOGO_PNG = "/img/AvtechLogo.png";
     private LogEntry logEntry;
     private static final String DEFAULT_DESTINATION_DIR = "results";
     private File destinationFile;
@@ -85,8 +88,8 @@ public class AvtechPDF {
 
         Document document = new Document(pdfDocument);
 
-
-        Image logo = new Image(ImageDataFactory.create(SRC_MAIN_RESOURCES_IMG_AVTECH_LOGO_PNG));
+        URL urlToImgResource = getClass().getResource(SRC_MAIN_RESOURCES_IMG_AVTECH_LOGO_PNG);
+        Image logo = new Image(ImageDataFactory.create(urlToImgResource));
         logo.scaleToFit(logo.getImageWidth() * scale, logo.getImageHeight() * scale);
 
         //Title Table

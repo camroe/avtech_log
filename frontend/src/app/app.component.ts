@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
     getLogEntries() {
         this.dataService.getLogEntries()
             .subscribe((data: LogEntry[]) => this.logEntries);
+        console.log("Called getLogEntries");
         return this.logEntries;
     }
 
