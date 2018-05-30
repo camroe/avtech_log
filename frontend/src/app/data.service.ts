@@ -28,7 +28,8 @@ export class DataService {
         – .catch() is used to handle errors when processing, and we should always implement it to handle exceptions.
          */
         console.log("About to call ", this.logEntriesURL);
-        return this.httpClient.get(this.logEntriesURL);
+
+        return this.httpClient.get<LogEntry[]>(this.logEntriesURL);
     }
 
 

@@ -25,10 +25,20 @@ export class AppComponent implements OnInit {
     //     return this.dataService.getLogEntries().then(logEntries => this.logEntries =logEntries);
     // }
     getLogEntries() {
+        // this.dataService.getLogEntries()
+        //     .subscribe((data: LogEntry[]) => this.logEntries);
+        // console.log("Called getLogEntries");
+        // return this.logEntries;
+
+
+        console.log("calling getLogEntries");
         this.dataService.getLogEntries()
-            .subscribe((data: LogEntry[]) => this.logEntries);
-        console.log("Called getLogEntries");
-        return this.logEntries;
+            .subscribe(res => {
+                console.log(res);
+                this.logEntries = res;
+            });
+        console.log(this.logEntries);
+
     }
 
     onSelect(logEntry: LogEntry): void {

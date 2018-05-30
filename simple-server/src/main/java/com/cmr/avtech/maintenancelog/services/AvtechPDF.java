@@ -2,7 +2,6 @@ package com.cmr.avtech.maintenancelog.services;
 
 import com.cmr.avtech.maintenancelog.model.LogEntry;
 import com.itextpdf.io.font.FontConstants;
-import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.color.DeviceGray;
@@ -31,7 +30,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AvtechPDF {
-//    private static final String SRC_MAIN_RESOURCES_IMG_AVTECH_LOGO_PNG = "src/main/resources/img/AvtechLogo.png";
+    //    private static final String SRC_MAIN_RESOURCES_IMG_AVTECH_LOGO_PNG = "src/main/resources/img/AvtechLogo.png";
     private static final String SRC_MAIN_RESOURCES_IMG_AVTECH_LOGO_PNG = "/img/AvtechLogo.png";
     private LogEntry logEntry;
     private static final String DEFAULT_DESTINATION_DIR = "results";
@@ -62,7 +61,6 @@ public class AvtechPDF {
     }
 
     /**
-     *
      * @param dirName
      * @return String The file name of the pdf file generated.
      * @throws IOException
@@ -103,10 +101,12 @@ public class AvtechPDF {
         document.close();
         return filename;
     }
-public byte[] getBytes() throws IOException {
-    Path path = Paths.get(destinationFile.getAbsolutePath());
-    return Files.readAllBytes(path);
-}
+
+    public byte[] getBytes() throws IOException {
+        Path path = Paths.get(destinationFile.getAbsolutePath());
+        return Files.readAllBytes(path);
+    }
+
     private String constructFileName(String defaultDestinationDir) {
         return defaultDestinationDir + "/" + getCurrentDateTimeStamp() + logEntry.getTailNumber() + ".pdf";
     }
