@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {LogEntry} from '../log-entry';
 import {DataService} from "../data.service";
 import {Observable} from "rxjs/index";
-import {HttpErrorResponse} from "@angular/common/http";
 
 
 @Component({
@@ -64,43 +63,8 @@ export class LogFormComponent implements OnInit {
 
     submitPDF(logEntry: LogEntry) {
         console.log("CLICK!");
-        // this.dataService.postLogEntry(logEntry);
-        // this.ret= this.dataService.postLogEntry(logEntry);
-        // console.log("Returned Observable");
-        // this.ret.subscribe(response => {
-        //     var url: string = window.URL.createObjectURL(this.dataService.postLogEntry(logEntry));
-        //     console.log("About to open new window");
-        //     window.open(url);
-        // });
-        // var blob: Blob = new Blob([this.ret],{type:'application/pdf'});
-        // var url: string = window.URL.createObjectURL(blob);
-        // console.log("About to open new window");
-        // console.log(blob);
-        // window.open(url);
-        // return this.ret;
-        var pdfBlob: Blob;
-        this.dataService.postLogEntry(logEntry)
-            .subscribe(response => {
-                    // console.log("About to open new window2");
-                    // var blob: Blob = new Blob(["Hello World from log-form!"], {type: "text/plain"});
-                    // var url: string = window.URL.createObjectURL(blob);
-                    // window.open(url);
-                pdfBlob = new Blob([response],{type:"application/pdf"});
-                console.log(pdfBlob);
-                },
-                (err: HttpErrorResponse) => {
-                    if (err.error instanceof Error) {
-                        console.log("Client-side Error occured");
-                    } else {
-                        console.log("ServerSide Error Occured");
-                        console.log(err.message);
-                    }
-                });
-        // console.log("About to open new window2");
-        // var blob: Blob = new Blob(["Hello World from log-form2!"], {type: "text/plain"});
-        // var url: string = window.URL.createObjectURL(blob);
-        // window.open(url);
-        var url:string = window.URL.createObjectURL(pdfBlob);
+        var pdfBlob: Blob = this.dataService.postLogEntry(logEntry);
+        var url: string = window.URL.createObjectURL(pdfBlob);
         window.open(url);
     }
 }

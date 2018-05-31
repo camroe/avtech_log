@@ -18,70 +18,30 @@ export class DataService {
     private logEntriesURL = 'api/logEntries';
     private logEntryURL = 'http://localhost:8090/api/logEntry';
     private ret: Observable<Blob>;
+    private blob: Blob;
 
     constructor(private httpClient: HttpClient) {
     }
 
-    //Mock LogEntries in Angular.
-    // getLogEntries(): Promise<LogEntry[]> {
-    //     return Promise.resolve(LOGENTRIES);
-    // }
 
-    getLogEntries() {
-        /*
-        See the signature of http get() function:
-        get(url: string, options?: RequestOptionsArgs): Observable<Response>;
-        -> get() returns an Observable object. We can change it to Promise to make an async service by simply using:
-        .toPromise() function.
 
-        – response object is a string with json form, so we should transform it to JSON object by using response.json().
-        – .catch() is used to handle errors when processing, and we should always implement it to handle exceptions.
-         */
+    public getLogEntries() {
         console.log("About to call ", this.logEntriesURL);
-
         return this.httpClient.get<LogEntry[]>(this.logEntriesURL);
     }
 
-    private handleError(error: any): Promise<any> {
-        console.error('Error', error); // for demo purposes only
-        return Promise.reject(error.message || error);
-    }
 
-    public postLogEntry(body: LogEntry): any {
+    public postLogEntry(body: LogEntry): Blob {
         console.log("postLogEntry: ", this.logEntryURL);
         console.log("body: ", JSON.stringify(body));
 
-        /**
-         post(url: string, body: any | null, options: {
-        headers?: HttpHeaders | {
-            [header: string]: string | string[];
-        };
-        observe?: 'body';
-        params?: HttpParams | {
-            [param: string]: string | string[];
-        };
-        reportProgress?: boolean;
-        responseType: 'blob';
-        withCredentials?: boolean;
-    }): Observable<Blob>;
-         * @type {Observable<any>}
-         */
-        // this.ret = this.httpClient.post(this.logEntryURL, JSON.stringify(body), {responseType:'blob'})
-        //     .pipe(
-        //         // catchError(this.handleErrorVerbose('postLogEntry',logEntry))
-        //         catchError(this.handleErrorVerbose)
-        //     );
-        // var blob: Blob = new Blob([this.ret], {type: 'application/pdf'});
-        // var url: string = window.URL.createObjectURL(blob);
-        // console.log("back from POST CALL ", blob.toString());
-        // console.log(blob);
-        //
-        // console.log(this.ret);
-        // return this.ret;
-        return this.httpClient.post(this.logEntryURL, JSON.stringify(body), {
+        this.httpClient.post(this.logEntryURL, JSON.stringify(body), {
             headers: postHttpHeaders,
             responseType: 'blob'
+        }).subscribe(response => {
+            this.blob=new Blob([response],{type: 'application/pdf'});
         });
+        return this.blob;
     }
 
 
