@@ -40,3 +40,9 @@ https://stackoverflow.com/questions/43602712/angular-2-and-spring-boot-deploy-to
 
 Angular Http example
 http://javasampleapproach.com/frontend/angular/develop-angular-service-angular4-service
+
+#Sites
+https://angular.io/tutorial
+
+https://developer.okta.com/blog/2017/12/04/basic-crud-angular-and-spring-boot
+

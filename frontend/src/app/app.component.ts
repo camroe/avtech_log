@@ -45,4 +45,5 @@ export class AppComponent implements OnInit {
         this.selectedLogEntry = logEntry;
         console.log("Selected LogEntry => ", this.selectedLogEntry);
     }
+
 }

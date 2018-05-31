@@ -1,5 +1,9 @@
 package com.cmr.avtech.maintenancelog.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -43,8 +47,14 @@ public class LogEntry implements Serializable {
     private String workOrderNumber;
 
     @Column(name = "logDate")
-    private Date logDate;
+    //TODO:Make logDate a real date once I figure out how to do the correct validation checks on teh UI Side. It
+    //should be in ISO 8601 format YYYY-MM-DDTHH:MM:SS.sssss
+        //    private Date logDate;
+    private String logDate;
 
+    public LogEntry() {
+
+    }
 
     public LogEntry(String tailNumber,
                     String manufacturer,
@@ -54,7 +64,7 @@ public class LogEntry implements Serializable {
                     Float hobbs,
                     String logEntry,
                     String workOrderNumber,
-                    Date logDate) {
+                    String logDate) {
          setTailNumber(tailNumber);
         setManufacturer(manufacturer);
         setModel(model);
@@ -139,28 +149,38 @@ public class LogEntry implements Serializable {
         this.workOrderNumber = workOrderNumber;
     }
 
-    public Date getLogDate() {
+    public String getLogDate() {
         return logDate;
     }
 
-    public void setLogDate(Date logDate) {
+    public void setLogDate(String logDate) {
         if (null == logDate )
-            logDate= java.sql.Date.valueOf(LocalDate.now());
+            logDate= java.sql.Date.valueOf(LocalDate.now()).toString();
         this.logDate = logDate;
     }
 
     @Override
     public String toString() {
-        return String.format("Customer[id=%d, " +
-                        "Tail Number='%s', " +
-                        "Manufacturer='%s'," +
-                        "Model='%s'," +
-                        "Serial Number='%s'" +
-                        "Total Time On Airframe(TTAF)='%d'," +
-                        "HOBBS='%s'," +
-                        "Work Order Number='%s," +
-                        "Date='%s]",
-                id, tailNumber, manufacturer, model, serialNumber, ttaf, hobbs, workOrderNumber, logDate);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = "";
+        try {
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            jsonString = mapper.writeValueAsString(this);
+        } catch (JsonProcessingException e){
+            e.printStackTrace();
+        }
+        return jsonString;
+//        return String.format("Customer[id=%d, " +
+//                        "Tail Number='%s', " +
+//                        "Manufacturer='%s'," +
+//                        "Model='%s'," +
+//                        "Serial Number='%s'" +
+//                        "Total Time On Airframe(TTAF)='%d'," +
+//                        "HOBBS='%s'," +
+//                        "Work Order Number='%s," +
+//                        "Date='%s]",
+//                id, tailNumber, manufacturer, model, serialNumber, ttaf, hobbs, workOrderNumber, logDate);
     }
 
 }

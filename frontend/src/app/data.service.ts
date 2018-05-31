@@ -1,14 +1,13 @@
+///<reference path="../../node_modules/rxjs/internal/Observable.d.ts"/>
 import {Injectable} from '@angular/core';
 import {LogEntry} from "./log-entry";
-import {HttpClient, HttpHeaders,HttpErrorResponse} from "@angular/common/http";
-import {Observable,throwError} from "rxjs/index";
-import {catchError} from "rxjs/internal/operators";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {Observable, throwError} from "rxjs/index";
 
-const postHttpOptions = {
-    headers: new HttpHeaders({
-        'Content-type': 'application/json'
-    })
-};
+const postHttpHeaders = new HttpHeaders({
+    'Content-type': 'application/json',
+    'Accept': 'application/pdf,*/*'
+});
 
 
 @Injectable({
@@ -17,8 +16,8 @@ const postHttpOptions = {
 export class DataService {
 
     private logEntriesURL = 'api/logEntries';
-    private logEntryURL = 'api/logEntry';
-
+    private logEntryURL = 'http://localhost:8090/api/logEntry';
+    private ret: Observable<Blob>;
 
     constructor(private httpClient: HttpClient) {
     }
@@ -48,14 +47,46 @@ export class DataService {
         return Promise.reject(error.message || error);
     }
 
-    public postLogEntry(logEntry: LogEntry) {
-        return this.httpClient.post(this.logEntryURL,logEntry,postHttpOptions)
-            .pipe(
-                // catchError(this.handleErrorVerbose('postLogEntry',logEntry))
-        catchError(this.handleErrorVerbose)
-            );
+    public postLogEntry(body: LogEntry): any {
+        console.log("postLogEntry: ", this.logEntryURL);
+        console.log("body: ", JSON.stringify(body));
+
+        /**
+         post(url: string, body: any | null, options: {
+        headers?: HttpHeaders | {
+            [header: string]: string | string[];
+        };
+        observe?: 'body';
+        params?: HttpParams | {
+            [param: string]: string | string[];
+        };
+        reportProgress?: boolean;
+        responseType: 'blob';
+        withCredentials?: boolean;
+    }): Observable<Blob>;
+         * @type {Observable<any>}
+         */
+        // this.ret = this.httpClient.post(this.logEntryURL, JSON.stringify(body), {responseType:'blob'})
+        //     .pipe(
+        //         // catchError(this.handleErrorVerbose('postLogEntry',logEntry))
+        //         catchError(this.handleErrorVerbose)
+        //     );
+        // var blob: Blob = new Blob([this.ret], {type: 'application/pdf'});
+        // var url: string = window.URL.createObjectURL(blob);
+        // console.log("back from POST CALL ", blob.toString());
+        // console.log(blob);
+        //
+        // console.log(this.ret);
+        // return this.ret;
+        return this.httpClient.post(this.logEntryURL, JSON.stringify(body), {
+            headers: postHttpHeaders,
+            responseType: 'blob'
+        });
     }
+
+
     private handleErrorVerbose(error: HttpErrorResponse) {
+        console.log("In handleErrorVerbose")
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.
             console.error('An error occurred:', error.error.message);
