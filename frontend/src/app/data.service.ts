@@ -23,26 +23,30 @@ export class DataService {
     constructor(private httpClient: HttpClient) {
     }
 
-
-
+    /**
+     *
+     * @returns {Observable<Object>}
+     */
     public getLogEntries() {
         console.log("About to call ", this.logEntriesURL);
         return this.httpClient.get<LogEntry[]>(this.logEntriesURL);
     }
 
-
-    public postLogEntry(body: LogEntry): Blob {
-        console.log("postLogEntry: ", this.logEntryURL);
-        console.log("body: ", JSON.stringify(body));
-
-        this.httpClient.post(this.logEntryURL, JSON.stringify(body), {
-            headers: postHttpHeaders,
-            responseType: 'blob'
-        }).subscribe(response => {
-            this.blob=new Blob([response],{type: 'application/pdf'});
-        });
-        return this.blob;
+    /**
+     * This method will return an observable to the caller to handle.
+     * @param {LogEntry} body
+     * @returns {Observable<Blob>}
+     */
+    public postLogEntry(body: LogEntry) {
+        console.log("About to call ", this.logEntryURL);
+        return this.httpClient.post(this.logEntryURL,
+            JSON.stringify(body),
+            {
+                headers: postHttpHeaders,
+                responseType: 'blob'
+            });
     }
+
 
 
     private handleErrorVerbose(error: HttpErrorResponse) {

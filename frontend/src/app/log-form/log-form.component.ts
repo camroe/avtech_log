@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LogEntry} from '../log-entry';
 import {DataService} from "../data.service";
-import {Observable} from "rxjs/index";
 
 
 @Component({
@@ -13,29 +12,29 @@ import {Observable} from "rxjs/index";
 export class LogFormComponent implements OnInit {
 
     submitted = false;
-
-
     model: LogEntry;
-    private ret: Observable<Blob>;
+    private pdfBlob: Blob;
 
-    onSubmit() {
-        this.submitted = true;
+    ngOnInit() {
+        this.notApplicable();
     }
 
     constructor(private dataService: DataService) {
     }
 
-    ngOnInit() {
-        this.notApplicable();
-    }
 
     // TODO: Remove this when we're done
     get diagnostic() {
         return JSON.stringify(this.model);
     }
 
+    onSubmit() {
+        this.submitted = true;
+    }
+
     clearForm() {
-        this.model = new LogEntry(null,
+        this.model = new LogEntry(
+            null,
             null,
             null,
             null,
@@ -49,7 +48,8 @@ export class LogFormComponent implements OnInit {
     }
 
     notApplicable() {
-        this.model = new LogEntry(null,
+        this.model = new LogEntry(
+            null,
             'None',
             'None',
             'None',
@@ -62,15 +62,40 @@ export class LogFormComponent implements OnInit {
     }
 
     submitPDF(logEntry: LogEntry) {
+        var win = window.open();
         console.log("CLICK!");
-        var pdfBlob: Blob = this.dataService.postLogEntry(logEntry);
-        if (pdfBlob == undefined) {
-            console.log("pdfBlob is undefined");
-        } else {
-            var url: string = window.URL.createObjectURL(pdfBlob);
-            window.open(url);
-        }
+        this.dataService.postLogEntry(logEntry)
+            .subscribe(
+                response => {
+                    this.pdfBlob = new Blob([response], {type: 'application/pdf'});
+                    console.log("next .....")
+                }, error => {
+                    console.log("Error Has Occurred in 'POST logEntry'");
+                    console.log(error.toString());
+                }, () => {
+                    console.log("Message Complete ..... Processing .....");
+                    console.log(this.pdfBlob); //This is populated with length 45779
+                    const url: string = window.URL.createObjectURL(this.pdfBlob);
+                    console.log("About to open URL ", url);
+                    var win = window.open(url);
+                });
     }
 }
 
+/**
+ * CODE SNIPPET
+ *
+ public postLogEntry(body: LogEntry): Blob {
+        console.log("postLogEntry: ", this.logEntryURL);
+        console.log("body: ", JSON.stringify(body));
+
+        this.httpClient.post(this.logEntryURL, JSON.stringify(body), {
+            headers: postHttpHeaders,
+            responseType: 'blob'
+        }).subscribe(response => {
+            this.blob=new Blob([response],{type: 'application/pdf'});
+        });
+        return this.blob;
+    }
+ */
 

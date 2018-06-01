@@ -21,16 +21,11 @@ export class AppComponent implements OnInit {
     constructor(private dataService: DataService) {
     }
 
-    // getLogEntries() {
-    //     return this.dataService.getLogEntries().then(logEntries => this.logEntries =logEntries);
-    // }
+    /**
+     * Called on page initialization to populate the potential list of log entries. This is an unnecessary addition but
+     * shows an example of populating and selecting a list of items.
+     */
     getLogEntries() {
-        // this.dataService.getLogEntries()
-        //     .subscribe((data: LogEntry[]) => this.logEntries);
-        // console.log("Called getLogEntries");
-        // return this.logEntries;
-
-
         console.log("calling getLogEntries");
         this.dataService.getLogEntries()
             .subscribe(res => {
