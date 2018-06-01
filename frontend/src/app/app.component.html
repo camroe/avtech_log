@@ -1,16 +1,18 @@
 <!--The content below is only a placeholder and can be replaced.-->
+
+
 <!--<div style="text-align:center">-->
   <!--<h1>-->
     <!--Welcome to {{ title }}-->
   <!--</h1>-->
 <!--</div>-->
 
-<h2 style="color:blue">My Planes</h2>
-<ul class="list-group">
-    <li *ngFor="let logEntry of logEntries" class="list-group-item list-grouip-item-info"
-        [class.selected]="logEntry === selectedLogEntry" (click)="onSelect(logEntry)">
-        <span style="color:blue">{{logEntry.tailNumber}} - {{logEntry.model}}</span>
-    </li>
-</ul>
+<!--<h2 style="color:blue">My Planes</h2>-->
+<!--<ul class="list-group">-->
+    <!--<li *ngFor="let logEntry of logEntries" class="list-group-item list-grouip-item-info"-->
+        <!--[class.selected]="logEntry === selectedLogEntry" (click)="onSelect(logEntry)">-->
+        <!--<span style="color:blue">{{logEntry.tailNumber}} - {{logEntry.model}}</span>-->
+    <!--</li>-->
+<!--</ul>-->
 <!--<logEntry-detail [logEntry]="selectedLogEntry"></logEntry-detail>-->
 <app-log-form></app-log-form>

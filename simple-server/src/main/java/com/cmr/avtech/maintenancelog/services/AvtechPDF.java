@@ -389,9 +389,11 @@ public class AvtechPDF {
             paragraph.add("NO LOG ENTRY MADE ")
                     .setBackgroundColor(Color.YELLOW);
         } else {
-            paragraph.add("[")
-                    .add(this.logEntry.getLogEntry())
-                    .add(" End of Official Log Entry.]");
+            Text eoole = new Text("[End of Official Log Entry]")
+                    .setUnderline()
+                    .setFontSize(smallFontSize);
+            paragraph.add(this.logEntry.getLogEntry())
+                    .add(eoole);
         }
         paragraph
                 .setFont(defaultFont)

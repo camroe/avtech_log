@@ -62,7 +62,6 @@ export class LogFormComponent implements OnInit {
     }
 
     submitPDF(logEntry: LogEntry) {
-        var win = window.open();
         console.log("CLICK!");
         this.dataService.postLogEntry(logEntry)
             .subscribe(
