@@ -64,8 +64,12 @@ export class LogFormComponent implements OnInit {
     submitPDF(logEntry: LogEntry) {
         console.log("CLICK!");
         var pdfBlob: Blob = this.dataService.postLogEntry(logEntry);
-        var url: string = window.URL.createObjectURL(pdfBlob);
-        window.open(url);
+        if (pdfBlob == undefined) {
+            console.log("pdfBlob is undefined");
+        } else {
+            var url: string = window.URL.createObjectURL(pdfBlob);
+            window.open(url);
+        }
     }
 }
 

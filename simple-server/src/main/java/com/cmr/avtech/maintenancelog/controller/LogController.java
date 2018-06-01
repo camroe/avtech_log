@@ -46,9 +46,9 @@ Logger log = LoggerFactory.getLogger(LogController.class);
         //Generate PDF based on input
 
 
-        LogEntry mockLogEntry = new LogEntry("N9145V", "Mooney", "M20G", "690011", 5477.7f, 477.7f, "This is the log entry", "WO485", new Date().toString());
-        log.info(mockLogEntry.toString());
-        AvtechPDF avtechPDF = new AvtechPDF(mockLogEntry);
+//        LogEntry mockLogEntry = new LogEntry("N9145V", "Mooney", "M20G", "690011", 5477.7f, 477.7f, "This is the log entry", "WO485", new Date().toString());
+//        log.info(mockLogEntry.toString());
+        AvtechPDF avtechPDF = new AvtechPDF(logEntry);
 
         try {
             avtechPDF.createPdf("results");
