@@ -5,8 +5,8 @@ export class LogEntry {
                 public manufacturer: string,
                 public model: string,
                 public serialNumber: string,
-                public totalTimeOnAirFrame: number,
-                public  hobbs: number,
+                public ttaf: number,
+                public hobbs: number,
                 public workOrderNumber: string,
                 public logDate: string,
                 public logEntry: string) {

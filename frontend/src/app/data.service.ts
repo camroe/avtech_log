@@ -16,7 +16,7 @@ const postHttpHeaders = new HttpHeaders({
 export class DataService {
 
     private logEntriesURL = 'api/logEntries';
-    private logEntryURL = 'http://localhost:8090/api/logEntry';
+    private logEntryURL = 'api/logEntry';
     private ret: Observable<Blob>;
     private blob: Blob;
 
